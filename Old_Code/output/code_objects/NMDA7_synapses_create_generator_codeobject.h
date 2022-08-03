@@ -1,7 +1,0 @@
-#ifndef _INCLUDED_NMDA7_synapses_create_generator_codeobject
-#define _INCLUDED_NMDA7_synapses_create_generator_codeobject
-
-void _run_NMDA7_synapses_create_generator_codeobject();
-
-
-#endif
