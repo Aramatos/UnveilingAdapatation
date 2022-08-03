@@ -1,0 +1,152 @@
+randomkit.o: brianlib/randomkit/randomkit.c \
+ brianlib/randomkit/randomkit.h
+Core_0_resetter_codeobject.o: code_objects/Core_0_resetter_codeobject.cpp \
+ code_objects/Core_0_resetter_codeobject.h objects.h synapses_classes.h \
+ brianlib/spikequeue.h brianlib/stdint_compat.h brianlib/clocks.h \
+ brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_0_stateupdater_codeobject.o: \
+ code_objects/Core_0_stateupdater_codeobject.cpp \
+ code_objects/Core_0_stateupdater_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_0_thresholder_codeobject.o: \
+ code_objects/Core_0_thresholder_codeobject.cpp \
+ code_objects/Core_0_thresholder_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_1_resetter_codeobject.o: code_objects/Core_1_resetter_codeobject.cpp \
+ code_objects/Core_1_resetter_codeobject.h objects.h synapses_classes.h \
+ brianlib/spikequeue.h brianlib/stdint_compat.h brianlib/clocks.h \
+ brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_1_stateupdater_codeobject.o: \
+ code_objects/Core_1_stateupdater_codeobject.cpp \
+ code_objects/Core_1_stateupdater_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_1_thresholder_codeobject.o: \
+ code_objects/Core_1_thresholder_codeobject.cpp \
+ code_objects/Core_1_thresholder_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_2_resetter_codeobject.o: code_objects/Core_2_resetter_codeobject.cpp \
+ code_objects/Core_2_resetter_codeobject.h objects.h synapses_classes.h \
+ brianlib/spikequeue.h brianlib/stdint_compat.h brianlib/clocks.h \
+ brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_2_stateupdater_codeobject.o: \
+ code_objects/Core_2_stateupdater_codeobject.cpp \
+ code_objects/Core_2_stateupdater_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_2_thresholder_codeobject.o: \
+ code_objects/Core_2_thresholder_codeobject.cpp \
+ code_objects/Core_2_thresholder_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_3_resetter_codeobject.o: code_objects/Core_3_resetter_codeobject.cpp \
+ code_objects/Core_3_resetter_codeobject.h objects.h synapses_classes.h \
+ brianlib/spikequeue.h brianlib/stdint_compat.h brianlib/clocks.h \
+ brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_3_stateupdater_codeobject.o: \
+ code_objects/Core_3_stateupdater_codeobject.cpp \
+ code_objects/Core_3_stateupdater_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+Core_3_thresholder_codeobject.o: \
+ code_objects/Core_3_thresholder_codeobject.cpp \
+ code_objects/Core_3_thresholder_codeobject.h objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ brianlib/common_math.h
+after_run_Core_0_thresholder_codeobject.o: \
+ code_objects/after_run_Core_0_thresholder_codeobject.cpp objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ code_objects/after_run_Core_0_thresholder_codeobject.h \
+ brianlib/common_math.h
+after_run_Core_1_thresholder_codeobject.o: \
+ code_objects/after_run_Core_1_thresholder_codeobject.cpp objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ code_objects/after_run_Core_1_thresholder_codeobject.h \
+ brianlib/common_math.h
+after_run_Core_2_thresholder_codeobject.o: \
+ code_objects/after_run_Core_2_thresholder_codeobject.cpp objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ code_objects/after_run_Core_2_thresholder_codeobject.h \
+ brianlib/common_math.h
+after_run_Core_3_thresholder_codeobject.o: \
+ code_objects/after_run_Core_3_thresholder_codeobject.cpp objects.h \
+ synapses_classes.h brianlib/spikequeue.h brianlib/stdint_compat.h \
+ brianlib/clocks.h brianlib/stdint_compat.h brianlib/dynamic_array.h \
+ brianlib/stdint_compat.h network.h brianlib/randomkit/randomkit.h \
+ code_objects/after_run_Core_3_thresholder_codeobject.h \
+ brianlib/common_math.h
+main.o: main.cpp objects.h synapses_classes.h brianlib/spikequeue.h \
+ brianlib/stdint_compat.h brianlib/clocks.h brianlib/stdint_compat.h \
+ brianlib/dynamic_array.h brianlib/stdint_compat.h network.h \
+ brianlib/randomkit/randomkit.h run.h brianlib/common_math.h \
+ code_objects/Core_0_resetter_codeobject.h \
+ code_objects/Core_0_stateupdater_codeobject.h \
+ code_objects/Core_0_thresholder_codeobject.h \
+ code_objects/after_run_Core_0_thresholder_codeobject.h \
+ code_objects/Core_1_resetter_codeobject.h \
+ code_objects/Core_1_stateupdater_codeobject.h \
+ code_objects/Core_1_thresholder_codeobject.h \
+ code_objects/after_run_Core_1_thresholder_codeobject.h \
+ code_objects/Core_2_resetter_codeobject.h \
+ code_objects/Core_2_stateupdater_codeobject.h \
+ code_objects/Core_2_thresholder_codeobject.h \
+ code_objects/after_run_Core_2_thresholder_codeobject.h \
+ code_objects/Core_3_resetter_codeobject.h \
+ code_objects/Core_3_stateupdater_codeobject.h \
+ code_objects/Core_3_thresholder_codeobject.h \
+ code_objects/after_run_Core_3_thresholder_codeobject.h
+network.o: network.cpp network.h brianlib/clocks.h \
+ brianlib/stdint_compat.h
+objects.o: objects.cpp objects.h synapses_classes.h brianlib/spikequeue.h \
+ brianlib/stdint_compat.h brianlib/clocks.h brianlib/stdint_compat.h \
+ brianlib/dynamic_array.h brianlib/stdint_compat.h network.h \
+ brianlib/randomkit/randomkit.h
+run.o: run.cpp objects.h synapses_classes.h brianlib/spikequeue.h \
+ brianlib/stdint_compat.h brianlib/clocks.h brianlib/stdint_compat.h \
+ brianlib/dynamic_array.h brianlib/stdint_compat.h network.h \
+ brianlib/randomkit/randomkit.h code_objects/Core_0_resetter_codeobject.h \
+ code_objects/Core_0_stateupdater_codeobject.h \
+ code_objects/Core_0_thresholder_codeobject.h \
+ code_objects/Core_1_resetter_codeobject.h \
+ code_objects/Core_1_stateupdater_codeobject.h \
+ code_objects/Core_1_thresholder_codeobject.h \
+ code_objects/Core_2_resetter_codeobject.h \
+ code_objects/Core_2_stateupdater_codeobject.h \
+ code_objects/Core_2_thresholder_codeobject.h \
+ code_objects/Core_3_resetter_codeobject.h \
+ code_objects/Core_3_stateupdater_codeobject.h \
+ code_objects/Core_3_thresholder_codeobject.h
+synapses_classes.o: synapses_classes.cpp

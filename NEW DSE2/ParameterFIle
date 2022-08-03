@@ -1,0 +1,94 @@
+
+
+Giacomo Adaoptation Trial
+
+adaptation_conf = {
+                   "Isoma_dpi_tau" : 5 * pA,
+                   "Isoma_th"  : .2 * nA,                   
+                   "Isoma_ahp_tau": 0.5 * pA,
+                   "alpha_soma": 4,                 
+                   "Isoma_ahp_w" : 10 * pA,
+                   "soma_refP": 2 * ms,
+                   "Isoma_const": 20 *pA,
+                  }
+
+ampa_conf = {"Iampa_tau": 5 * pA,
+            "alpha_ampa": 4,
+            "Iampa_w0": 20 * pA}
+
+PC
+
+adaptation_conf = {
+                   "Isoma_dpi_tau" :  2.5* pA,
+                   "Isoma_th"  : 4 * nA,  
+                   "alpha_soma": .5,
+                   
+
+                   "Isoma_ahp_tau": 30 * pA,             
+                   "Isoma_ahp_w" : 500 * pA,
+                   "alpha_ahp"  : 4,  
+                   
+
+                   "soma_refP": .5 * ms,
+                   "Isoma_const": 150 *pA,
+                  }
+
+
+SST initial
+
+
+adaptation_conf = {
+                   "Isoma_dpi_tau" :  3.5* pA,
+                   "Isoma_th"  : .1 * nA,  
+                   "alpha_soma": .35,
+                   "Isoma_th"  : 200* pA,  
+
+                   "Isoma_ahp_tau": 11 * pA,             
+                   "Isoma_ahp_w" : 5 * pA,
+                   
+
+                   "soma_refP": 2 * ms,
+                   "Isoma_const": 150 *pA,
+
+                   "Isoma_pfb_gain": 10*pA,
+                   "Isoma_pfb_th": 70*pA,
+                   "Isoma_pfb_norm": 10*pA,
+                  }
+
+
+ampa_conf = {"Iampa_tau": 5 * pA,
+            "alpha_ampa": 4,
+            "Iampa_w0": 0 * pA}
+
+nmda_conf = {"Inmda_tau": 5 * pA,
+            "alpha_nmda": 4,
+            "Inmda_w0": 0 * pA}
+
+PV
+
+adaptation_conf = {
+                   "Isoma_dpi_tau" :  7.5* pA,
+                   "Isoma_th"  : 6.500 * nA,  
+                   "alpha_soma": 1,
+                   
+
+                   "Isoma_ahp_tau": 11 * pA,             
+                   "Isoma_ahp_w" : 0 * pA,
+                   "alpha_ahp"  : 1,  
+                   
+
+                   "soma_refP": .5 * ms,
+                   "Isoma_const": 150 *pA,
+
+                   "Isoma_pfb_gain": 10*pA,
+                   "Isoma_pfb_th": 50*pA,
+                   "Isoma_pfb_norm": 10*pA,
+                  }
+
+
+ampa_conf = {"Iampa_tau": 3 * pA,
+            "alpha_ampa": 5,
+            "Iampa_w0": 500* pA}
+
+
+

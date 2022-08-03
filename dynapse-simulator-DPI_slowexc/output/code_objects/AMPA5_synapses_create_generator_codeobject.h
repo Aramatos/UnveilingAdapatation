@@ -1,7 +1,0 @@
-#ifndef _INCLUDED_AMPA5_synapses_create_generator_codeobject
-#define _INCLUDED_AMPA5_synapses_create_generator_codeobject
-
-void _run_AMPA5_synapses_create_generator_codeobject();
-
-
-#endif

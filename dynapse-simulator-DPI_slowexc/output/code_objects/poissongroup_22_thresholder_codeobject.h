@@ -1,7 +1,0 @@
-#ifndef _INCLUDED_poissongroup_22_thresholder_codeobject
-#define _INCLUDED_poissongroup_22_thresholder_codeobject
-
-void _run_poissongroup_22_thresholder_codeobject();
-
-
-#endif
