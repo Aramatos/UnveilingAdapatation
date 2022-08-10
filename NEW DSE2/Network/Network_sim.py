@@ -50,7 +50,7 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
     # to start a new build to run multiple full simulations
 
 
-
+    print(n)
     # Create a Brian2 network and chip instance using that monitors Dynap-SE1 resources.
     network = Network()
     chip = DynapSE(network)
@@ -232,6 +232,72 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
 
 
     return Network_output,Current_monitors
+    
+
+import numpy as np
+
+
+def PC_PV_CVerror(Network_Output,main_conf):
+    [PC_CV_average,PV_CV_average,SST_CV_average]=cv_squared(Network_Output,main_conf['spike_inp_end'])
+    error=((1-PC_CV_average)**2+(1-PV_CV_average)**2)/2
+    
+    return error
+
+
+
+
+
+def split_spike_indices_by_window(times, indices, window_size:int, total_duration:int):
+	"""
+	Split a list of spike indices (with accompanying spike times) into bins 
+	based on equal length time windows.
+	"""
+	return np.split(indices, np.sum(np.atleast_2d(times) < np.atleast_2d(np.arange(window_size,total_duration,window_size)).T, axis=1))
+
+
+# given a spike train (times and indices of spikes)
+# - split the spike train into small time windows
+# - for each time window calculate the number of spikes for each neuron
+# - for each pair of neurons, calculate the correlation between the time windowed spike counts
+# - return the average correlation as a measure of population spiking synchrony
+# 
+def spike_train_synchrony_correlation(spike_times, spike_indices, total_duration:int):
+	"""
+	Calculate the average correlation between the windowed spike counts for all pairs
+	of neurons in the network.
+	Returns NaN if no neurons fired. Returns 0 if only one neuron fired.
+
+	From: 
+	Kumar, A., Schrader, S., Aertsen, A., & Rotter, S. (2008). 
+	The High-Conductance State of Cortical Networks. Neural Computation, 20(1), 1-43. 
+	https://doi.org/10.1162/neco.2008.20.1.1
+	"""
+	if len(spike_indices) == 0:
+		return np.nan
+	elif len(spike_indices) == 1:
+		return 0
+	
+	neuron_indices = np.unique(spike_indices)
+	num_neurons = len(neuron_indices)
+	windowed_spikes = split_spike_indices_by_window(spike_times, spike_indices, 2, total_duration)
+	windowed_spike_counts = np.zeros((1+np.max(neuron_indices), len(windowed_spikes)))
+
+	for i, window in enumerate(windowed_spikes):
+		spike_indices, spike_counts = np.unique(window, return_counts=True)
+		windowed_spike_counts[spike_indices, i] = spike_counts
+	
+	# only calculate the correlations for spike trains where we have spikes
+	spiking_neuron_spike_trains = windowed_spike_counts[neuron_indices,:]
+	if spiking_neuron_spike_trains.shape[0] > 1:
+		correlation_coefficients = np.tril(np.corrcoef(spiking_neuron_spike_trains), k=-1)
+		num_coefficients = num_neurons*(num_neurons-1) / 2
+		# on the off chance that a spike train is perfectly regular, correlating with it will
+		# result in a NaN value - remove these
+		return np.nansum(correlation_coefficients) / (num_coefficients - np.count_nonzero(np.isnan(correlation_coefficients)))
+	else:
+		# we only have one neuron spike train - no synchronisation
+		return 0.0
+
 
 def Graph_network(Network_Output,duration): 
 
@@ -323,11 +389,11 @@ def Network_firing_rates(Network_Output,duration):
 
 
 def Graph_currents(Current_Monitors):
-     fig = plt.figure(figsize=(18, 20),constrained_layout=True)
+     nrows= len(Current_Monitors['mon_PC_Imem'])+len(Current_Monitors['mon_PV_Imem'])+len(Current_Monitors['mon_SST_Imem'])
+     fig = plt.figure(figsize=(18, nrows),constrained_layout=True)
      gs0 = fig.add_gridspec(1, 2)
 
 
-     nrows= len(Current_Monitors['mon_PC_Imem'])+len(Current_Monitors['mon_PV_Imem'])+len(Current_Monitors['mon_SST_Imem'])
 
      print(nrows)
 
@@ -355,6 +421,30 @@ def Graph_currents(Current_Monitors):
      fig.suptitle('Detailed Current view\n All time in ms and all currents in pA')
 
      return fig
+
+
+
+def network_synchrony(main_conf,Network_Output):
+    stop_time=main_conf['spike_inp_end']*1000
+    duration=main_conf['simulation_duration']*1000
+    analysis_time=duration-stop_time
+
+
+    PC_monitor_i=Network_Output["PC_output_i"][Network_Output["PC_output_t"]>stop_time]
+    PC_monitor_t=Network_Output["PC_output_t"][Network_Output["PC_output_t"]>stop_time]
+
+    PV_monitor_i=Network_Output["PV_output_i"][Network_Output["PV_output_t"]>stop_time]
+    PV_monitor_t=Network_Output["PV_output_t"][Network_Output["PV_output_t"]>stop_time]
+        
+    SST_monitor_i=Network_Output["SST_output_i"][Network_Output["SST_output_t"]>stop_time]
+    SST_monitor_t=Network_Output["SST_output_t"][Network_Output["SST_output_t"]>stop_time]
+
+
+    PC_synchrony = spike_train_synchrony_correlation(PC_monitor_t,PC_monitor_i,analysis_time)
+    PV_synchrony = spike_train_synchrony_correlation(PV_monitor_t,PV_monitor_i,analysis_time)
+    SST_synchrony = spike_train_synchrony_correlation(SST_monitor_t,SST_monitor_i,analysis_time)
+
+    return [PC_synchrony,PV_synchrony,SST_synchrony]
 
 def cv_squared(Network_Output,stop):
      PC_monitor_i=Network_Output["PC_output_i"][Network_Output["PC_output_t"]>stop*1000]
