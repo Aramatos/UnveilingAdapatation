@@ -87,10 +87,10 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
 
     # Synapses, Local Connections
     syn_PC = chip.add_connection(PC, PC, synapse_type='AMPA')
-    syn_PC.connect(p=0.30)
+    syn_PC.connect(p=0.3)
     
     syn_PV = chip.add_connection(PV, PV, synapse_type='GABA_B')
-    syn_PV.connect(p=.9)
+    syn_PV.connect(p=.6)
 
     syn_SSTPC = chip.add_connection(SST, PC, synapse_type='GABA_B')
     syn_SSTPC.connect(p=0.8)
@@ -99,20 +99,20 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
     syn_PVPC.connect(p=0.6)#changed 
 
 
-    syn_PCSST = chip.add_connection(PV, SST, synapse_type='AMPA')
-    chip.connect(syn_PCSST,True)
+    syn_PCSST = chip.add_connection(PC, SST, synapse_type='AMPA')
+    chip.connect(syn_PCSST,p=.8)
     syn_PCPV = chip.add_connection(PC, PV, synapse_type='AMPA_STD')
     syn_PCPV.connect(p=0.6)#changed 
 
     syn_PVSST = chip.add_connection(PV, SST, synapse_type='GABA_B')
-    chip.connect(syn_PVSST,True)
+    chip.connect(syn_PVSST,p=.8)
     syn_SSTPV = chip.add_connection(SST, PV, synapse_type='GABA_B')
     syn_SSTPV.connect(p=0.4)
 
     
     #Synapses, irregularity
     if irregularity_key == True:
-        print('wtf')
+        
         irregularity_synapses_PC=[]
         irregularity_synapses_PV=[]
         irregularity_synapses_SST=[]
@@ -297,6 +297,8 @@ def spike_train_synchrony_correlation(spike_times, spike_indices, total_duration
 	else:
 		# we only have one neuron spike train - no synchronisation
 		return 0.0
+
+
 
 
 def Graph_network(Network_Output,duration): 
