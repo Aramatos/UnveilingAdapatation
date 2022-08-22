@@ -77,11 +77,11 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
 
     # Synapses, Thalamacortical Connections
     syn_inpPC = chip.add_connection(spikegen, PC, synapse_type='AMPA')
-    chip.connect(syn_inpPC,True)
+    syn_inpPC.connect(p=0.6)
     syn_inpPV = chip.add_connection(spikegen, PV, synapse_type='AMPA_STD')
-    chip.connect(syn_inpPV,True)
+    syn_inpPV.connect(p=0.6)
     syn_inpSST = chip.add_connection(spikegen, SST, synapse_type='AMPA')
-    chip.connect(syn_inpSST,True)
+    syn_inpSST.connect(p=0.3)
 
 
 
@@ -93,21 +93,21 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
     syn_PV.connect(p=.6)
 
     syn_SSTPC = chip.add_connection(SST, PC, synapse_type='GABA_B')
-    syn_SSTPC.connect(p=0.8)
+    syn_SSTPC.connect(p=0.9)
     
     syn_PVPC = chip.add_connection(PV, PC, synapse_type='GABA_B')
     syn_PVPC.connect(p=0.6)#changed 
 
 
     syn_PCSST = chip.add_connection(PC, SST, synapse_type='AMPA')
-    chip.connect(syn_PCSST,p=.8)
+    syn_PCSST.connect(p=.8)
     syn_PCPV = chip.add_connection(PC, PV, synapse_type='AMPA_STD')
     syn_PCPV.connect(p=0.6)#changed 
 
     syn_PVSST = chip.add_connection(PV, SST, synapse_type='GABA_B')
-    chip.connect(syn_PVSST,p=.8)
+    syn_PVSST.connect(p=.8)
     syn_SSTPV = chip.add_connection(SST, PV, synapse_type='GABA_B')
-    syn_SSTPV.connect(p=0.4)
+    syn_SSTPV.connect(p=0.9)
 
     
     #Synapses, irregularity
@@ -173,19 +173,15 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
         mon_SST_Imem = StateMonitor(SST,'Isoma_mem',record=True)
         mon_PV_Imem=StateMonitor(PV,'Isoma_mem',record=True)
         mon_PC_Imem = StateMonitor(PC,'Isoma_mem',record=True)
-        mon_PC_input=StateMonitor(syn_inpPC,'Iampa',record=[0])
-        mon_PV_input=StateMonitor(syn_inpPV,'Iampa_std',record=[0])
-        mon_SST_input= StateMonitor(syn_inpSST,'Iampa',record=[0])
-        mon_PCPC=StateMonitor(syn_PC,'Iampa',record=[0])
-        mon_PVPV=StateMonitor(syn_PV,'Igaba_b',record=[0])
-        mon_SSTPC=StateMonitor(syn_SSTPC,'Igaba_b',record=[0])
-        mon_PVPC=StateMonitor(syn_PVPC,'Igaba_b',record=[0])
-        mon_PCSST=StateMonitor(syn_PCSST,'Iampa',record=[0])
-        mon_PCPV=StateMonitor(syn_PCPV,'Iampa_std',record=[0])
-        mon_PVSST=StateMonitor(syn_PVSST,'Igaba_b',record=[0])
-        mon_SSTPV=StateMonitor(syn_SSTPV,'Igaba_b',record=[0])
+        mon_PC_ampa_input=StateMonitor(syn_inpPC,'Iampa',record=[0])
+        mon_PV_ampa_std_input=StateMonitor(syn_inpPV,'Iampa_std',record=[0])
+        mon_SST_ampa_input= StateMonitor(syn_inpSST,'Iampa',record=[0])
+        mon_PV_gaba_input=StateMonitor(syn_PV,'Igaba_b',record=[0])
+        mon_PC_gaba_input=StateMonitor(syn_SSTPC,'Igaba_b',record=[0])
+        mon_SST_gaba_input=StateMonitor(syn_PVSST,'Igaba_b',record=[0])
+
         
-        network.add([mon_PVSST,mon_SSTPV,mon_PC_input,mon_PV_input,mon_PCPC,mon_PVPV,mon_PCPV,mon_PVPC,mon_PCSST,mon_SSTPC,mon_SST_Imem,mon_PC_Imem,mon_SST_input,mon_PV_Imem])
+        network.add([mon_PV_gaba_input,mon_PC_gaba_input,mon_PV_ampa_std_input,mon_SST_gaba_input,mon_PC_ampa_input,mon_SST_ampa_input,mon_SST_Imem,mon_PC_Imem,mon_PV_Imem])
       
          
       
@@ -214,17 +210,12 @@ def Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_S
                          'mon_SST_Imem':mon_SST_Imem.Isoma_mem/pA,
                          'mon_PC_Imem':mon_PC_Imem.Isoma_mem/pA,
                          'mon_PV_Imem':mon_PV_Imem.Isoma_mem/pA,
-                         'mon_SST_input':mon_SST_input.Iampa/pA,
-                         'mon_PC_input':mon_PC_input.Iampa/pA,
-                         'mon_PV_input':mon_PV_input.Iampa_std/pA,
-                         'mon_PCPC':mon_PCPC.Iampa/pA,
-                         'mon_PVPV':mon_PVPV.Igaba_b/pA,
-                         'mon_SSTPC':mon_SSTPC.Igaba_b/pA,
-                         'mon_PVPC':mon_PVPC.Igaba_b/pA,
-                         'mon_PCSST':mon_PCSST.Iampa/pA,
-                         'mon_PCPV':mon_PCPV.Iampa_std/pA,
-                         'mon_PVSST':mon_PVSST.Igaba_b/pA,
-                         'mon_SSTPV':mon_SSTPV.Igaba_b/pA
+                         'mon_SST_ampa_input':mon_SST_ampa_input.Iampa/pA,
+                         'mon_PV_ampa_std_input':mon_PV_ampa_std_input.Iampa_std/pA,
+                         'mon_PC_ampa_input':mon_PC_ampa_input.Iampa/pA,
+                         'mon_PV_gaba_input':mon_PV_gaba_input.Igaba_b/pA,
+                         'mon_PC_gaba_input':mon_PC_gaba_input.Igaba_b/pA,
+                         'mon_SST_gaba_input':mon_SST_gaba_input.Igaba_b/pA,
                          }
 
 
@@ -362,7 +353,7 @@ def Network_firing_rates(Network_Output,duration):
     except:
         PC_ave_fr=0
         PC_max_fr=0
-        print('SST did not fire in the whole simulation')
+        print('PC did not fire in the whole simulation')
 
     try:
         PV_firing_rates=[len(PV_monitor_t[PV_monitor_i==i])/(duration*1000*ms) for i in range(max(PV_monitor_i))]
@@ -372,7 +363,7 @@ def Network_firing_rates(Network_Output,duration):
     except:
         PV_ave_fr=0
         PV_max_fr=0
-        print('SST did not fire in the whole simulation')
+        print('PV did not fire in the whole simulation')
     
     try:
         SST_firing_rates=[len(SST_monitor_t[SST_monitor_i==i])/(duration*1000*ms) for i in range(max(SST_monitor_i))]
@@ -389,22 +380,37 @@ def Network_firing_rates(Network_Output,duration):
     
     return Max_fr,Ave_fr
 
+def give_stats(Network_Output,main_conf):
+    import warnings
+    warnings.filterwarnings("ignore")
+    [Max_fr,Ave_fr]=Network_firing_rates(Network_Output,main_conf['simulation_duration'])
+    [PC_CV_average,PV_CV_average,SST_CV_average]=cv_squared(Network_Output)
+    [PC_synchrony,PV_synchrony,SST_synchrony]=network_synchrony(main_conf,Network_Output)
+    [PC_max_fr,PV_max_fr,SST_max_fr]=Max_fr
+    [PC_ave_fr,PV_ave_fr,SST_ave_fr]=Ave_fr
+
+    print('Average firing rate in populations PC:'+str(PC_ave_fr)+' PV: '+str(PV_ave_fr)+' SST: '+str(SST_ave_fr))
+    print('Maximum firing rate in populations PC:'+str(PC_max_fr)+' PV: '+str(PV_max_fr)+' SST: '+str(SST_max_fr))
+    print('Cv Squared Values are PC:'+str(PC_CV_average)+' PV: '+str(PV_CV_average)+' SST: '+str(SST_CV_average))
+    print('Synchrony Values are PC:'+str(PC_synchrony)+' PV: '+str(PV_synchrony)+' SST: '+str(SST_synchrony))
+
+    return
 
 def Graph_currents(Current_Monitors):
      nrows= len(Current_Monitors['mon_PC_Imem'])+len(Current_Monitors['mon_PV_Imem'])+len(Current_Monitors['mon_SST_Imem'])
-     fig = plt.figure(figsize=(18, nrows),constrained_layout=True)
+     fig = plt.figure(figsize=(25, nrows),constrained_layout=True)
      gs0 = fig.add_gridspec(1, 2)
 
 
 
      print(nrows)
 
-     n_synapsemonitors =11
+     n_synapsemonitors =6
 
      gs00 = gs0[0].subgridspec(n_synapsemonitors , 1)
      gs01 = gs0[1].subgridspec(nrows, 1)
 
-     synapse_input_array=['mon_PC_input','mon_PV_input','mon_SST_input','mon_PCPC','mon_PVPV','mon_SSTPC','mon_PVPC','mon_PCSST','mon_PCPV','mon_PVSST','mon_SSTPV']
+     synapse_input_array=['mon_PC_ampa_input','mon_PV_ampa_std_input','mon_SST_ampa_input','mon_PC_gaba_input','mon_PV_gaba_input','mon_SST_gaba_input',]
      for a in range(n_synapsemonitors):
              ax = fig.add_subplot(gs00[a])
              ax.plot(Current_Monitors['time'],Current_Monitors[synapse_input_array[a]][0], linewidth=1.5)
@@ -448,15 +454,15 @@ def network_synchrony(main_conf,Network_Output):
 
     return [PC_synchrony,PV_synchrony,SST_synchrony]
 
-def cv_squared(Network_Output,stop):
-     PC_monitor_i=Network_Output["PC_output_i"][Network_Output["PC_output_t"]>stop*1000]
-     PC_monitor_t=Network_Output["PC_output_t"][Network_Output["PC_output_t"]>stop*1000]
+def cv_squared(Network_Output):
+     PC_monitor_i=Network_Output["PC_output_i"]
+     PC_monitor_t=Network_Output["PC_output_t"]
 
-     PV_monitor_i=Network_Output["PV_output_i"][Network_Output["PV_output_t"]>stop*1000]
-     PV_monitor_t=Network_Output["PV_output_t"][Network_Output["PV_output_t"]>stop*1000]
+     PV_monitor_i=Network_Output["PV_output_i"]
+     PV_monitor_t=Network_Output["PV_output_t"]
      
-     SST_monitor_i=Network_Output["SST_output_i"][Network_Output["SST_output_t"]>stop*1000]
-     SST_monitor_t=Network_Output["SST_output_t"][Network_Output["SST_output_t"]>stop*1000]
+     SST_monitor_i=Network_Output["SST_output_i"]
+     SST_monitor_t=Network_Output["SST_output_t"]
      
 
 
@@ -471,8 +477,7 @@ def cv_squared(Network_Output,stop):
           cv_list = cv_list[~numpy.isnan(cv_list)]
           PC_average=mean(cv_list)
      except ValueError:
-          print('PC has no spikes')
-          PC_average=100
+          PC_average=0
 
      cv_list=[]
      try:
@@ -485,8 +490,7 @@ def cv_squared(Network_Output,stop):
           PV_average=mean(cv_list)
 
      except ValueError:
-          print('PV has no spikes')
-          PV_average=100
+          PV_average=0
 
      
      try:
@@ -500,8 +504,7 @@ def cv_squared(Network_Output,stop):
           SST_average=mean(cv_list)
      
      except ValueError:
-          print('SST has no spikes')
-          SST_average=100
+          SST_average=0
 
      cv_averages= [PC_average,PV_average,SST_average]
 

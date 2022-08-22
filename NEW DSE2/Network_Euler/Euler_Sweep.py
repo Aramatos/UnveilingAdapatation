@@ -35,26 +35,26 @@ df_results = pd.DataFrame()
 
 main_conf={
         'simulation_duration':1,#in seconds
-        'input_spike_freq':200,
+        'input_spike_freq':1,
         'N_neurons':50,
         'spike_inp_start':0,
-        'spike_inp_end':.1,
-        'irregularity_weight':8,#8
-        'irregularity_freq':20,#20
+        'spike_inp_end':1,
+        'irregularity_weight':0,#8
+        'irregularity_freq':0,#20
         'irregularity_key':False,
         'detailed_monitors':True
         }
 
 weight_conf={
-        'syn_inpPC':10, #5
-        'syn_inpPV':10, #5
+        'syn_inpPC':3, #5
+        'syn_inpPV':1, #5
         'syn_inpSST':0,
-        'syn_PC':18,#5
-        'syn_PV':5,#5
+        'syn_PC':1.1,#5 recurreny
+        'syn_PV':1,#5 recurrency
         'syn_SSTPC':0,
-        'syn_PVPC':5,#10
+        'syn_PVPC':2,#10
         'syn_PCSST':0,#20
-        'syn_PCPV':12,#10
+        'syn_PCPV':2,#10
         'syn_PVSST':0,
         'syn_SSTPV':0#
         }
@@ -73,25 +73,22 @@ PC_conf =  {
         "Isoma_const": 150 *pA
     }
 
-PV_conf = {
-    "Isoma_dpi_tau" :  7.5* pA,
-    "Isoma_th"  : 10* nA,  
-    "alpha_soma": 3,
-    
-    "Isoma_ahp_tau": 11 * pA,             
-    "Isoma_ahp_w" : 0 * pA,
-    "alpha_ahp"  : 1,  
-    
-    "soma_refP": 1 * ms,
-    "Isoma_const": 300 *pA
-
-    
+PC_conf =  {
+        "Isoma_dpi_tau" : 2.8* pA,
+        "Isoma_th" : 200*pA, 
+        "alpha_soma": 1,
+        "Isoma_ahp_tau": 3 * pA, 
+        "Isoma_ahp_w" : 70 * pA,
+        "alpha_ahp" : 2, 
+        "soma_refP": 10 * ms,
+        "Isoma_const": 150 *pA 
     }
     
+    
 SST_conf = {
-    "Isoma_dpi_tau" :  1* pA,  
+    "Isoma_dpi_tau" :  3.5* pA,  
     "alpha_soma": 1,
-    "Isoma_th"  : 1* nA,  
+    "Isoma_th"  : .5* nA,  
 
     "Isoma_ahp_tau": 30 * pA,  
     "Isoma_ahp_w" : 500 * pA,
@@ -108,37 +105,51 @@ syn_PV_conf = {
         "Idischarge_w":5*pA,
 
 
-        "Iampa_w0":20*pA
+        "Iampa_tau": 5 * pA,
+        "alpha_ampa": 4,
+        "Iampa_w0":20*pA,
+
+        'Igaba_b_tau': 5 * pA,        
+        'Igaba_b_w0': 100 * pA,
+        "alpha_gaba_b": 4
         } 
+
 
 syn_PC_conf = {
         "Iampa_tau": 5 * pA,
-         "alpha_ampa": 4,
-        "Iampa_w0":10*pA
+        "alpha_ampa": 4,
+        "Iampa_w0":20*pA,
+
+        'Igaba_b_tau': 1 * pA, #5       # Synaptic time constant current, the time constant is inversely proportional to I_tau
+        'Igaba_b_w0': 4 * pA,#100
+        "alpha_gaba_b": 1#4
         }
 
 syn_SST_conf = {
         "Iampa_tau": .1 * pA,
-        'alpha_ampa': 10,
-        "Iampa_w0":0*pA
-        }
+        'alpha_ampa': 5,
+        "Iampa_w0":20*pA,
 
+        'Igaba_b_tau': 5 * pA,        
+        'Igaba_b_w0': 100 * pA,
+        "alpha_gaba_b": 4
+        }
 
 
 
 parameter_list_1=linspace(40,50,1)
 
-parameter_list_2=linspace(1,100,2)
+parameter_list_2=linspace(1,10,1)
 
-parameter_list_3=linspace(1,100,2)
+parameter_list_3=linspace(1,10,1)
 
-parameter_list_4=linspace(1,100,2)
+parameter_list_4=linspace(1,10,1)
 
-parameter_list_5=linspace(1,100,2)
+parameter_list_5=linspace(1,10,1)
 
-parameter_list_6=linspace(1,100,2)
+parameter_list_6=linspace(1,10,1)
 
-parameter_list_7=linspace(1,100,2)
+parameter_list_7=linspace(1,10,1)
 
 
 
@@ -154,8 +165,6 @@ Results_PC=[]
 Results_PV=[]
 Results_SST=[]
 
-dict={'detailed_monitors':False}
-main_conf.update(dict)
 for param1 in parameter_list_1:
     for param2 in parameter_list_2:
         for param3 in parameter_list_3:
