@@ -59,18 +59,17 @@ weight_conf={
         'syn_SSTPV':0#
         }
 
-PC_conf =  {
-        "Isoma_dpi_tau" :  2.8* pA,
-        "Isoma_th"  : 30 * nA,  
-        "alpha_soma": 4,
-
-        "Isoma_ahp_tau": 3 * pA,             
-        "Isoma_ahp_w" : 70 * pA,
-        
-        "alpha_ahp"  : 15,  
-        "soma_refP": 2  * ms,
-
-        "Isoma_const": 150 *pA
+PV_conf = {
+    "Isoma_dpi_tau" :  7.5* pA,
+    "Isoma_th"  : 5* nA,  
+    "alpha_soma": 2.7,
+    
+    "Isoma_ahp_tau": 0 * pA,             
+    "Isoma_ahp_w" : 0 * pA,
+    "alpha_ahp"  : 1,  
+    
+    "soma_refP": 2.5 * ms,
+    "Isoma_const": 150 *pA
     }
 
 PC_conf =  {
@@ -165,6 +164,8 @@ Results_PC=[]
 Results_PV=[]
 Results_SST=[]
 
+x=1
+
 for param1 in parameter_list_1:
     for param2 in parameter_list_2:
         for param3 in parameter_list_3:
@@ -201,7 +202,7 @@ for param1 in parameter_list_1:
                                                 x=0
                                         except RuntimeError:
                                                 x=1  
-                                [PC_average,PV_average,SST_average]=cv_squared(Network_Output,main_conf['spike_inp_end'])
+                                [PC_average,PV_average,SST_average]=cv_squared(Network_Output)
 
                                 param_1_axis.append(param1)
                                 param_2_axis.append(param2)
