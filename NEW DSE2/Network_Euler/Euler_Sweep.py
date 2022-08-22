@@ -195,7 +195,12 @@ for param1 in parameter_list_1:
                                 dict={'syn_inpPV':param7}
                                 weight_conf.update(dict)
 
-                                [Network_Output,Current_Monitors]=Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_SST_conf,weight_conf)  
+                                while x==1:
+                                        try:
+                                                [Network_Output,Current_Monitors]=Network_sim(main_conf,PC_conf,PV_conf,SST_conf,syn_PC_conf,syn_PV_conf,syn_SST_conf,weight_conf)
+                                                x=0
+                                        except RuntimeError:
+                                                x=1  
                                 [PC_average,PV_average,SST_average]=cv_squared(Network_Output,main_conf['spike_inp_end'])
 
                                 param_1_axis.append(param1)
